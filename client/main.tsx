@@ -20,6 +20,8 @@ import ManagerOrders from "./pages/ManagerOrders";
 import ManagerArticles from "./pages/ManagerArticles";
 import ManagerProductDetails from "./pages/ManagerProductDetails";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 
 interface NotificationContextType {
   showNotifications: boolean;
@@ -57,20 +59,78 @@ const App = () => {
             <FallbackBanner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/new-order" element={<NewOrder />} />
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/users" element={<Users />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Index />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/new-order"
+                  element={
+                    <ProtectedRoute>
+                      <NewOrder />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/orders"
+                  element={
+                    <ProtectedRoute>
+                      <Orders />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/users"
+                  element={
+                    <ProtectedRoute requireOwner={true}>
+                      <Users />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/manager-dashboard"
-                  element={<ManagerDashboard />}
+                  element={
+                    <ProtectedRoute>
+                      <ManagerDashboard />
+                    </ProtectedRoute>
+                  }
                 />
-                <Route path="/manager-orders" element={<ManagerOrders />} />
-                <Route path="/manager-articles" element={<ManagerArticles />} />
+                <Route
+                  path="/manager-orders"
+                  element={
+                    <ProtectedRoute>
+                      <ManagerOrders />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/manager-articles"
+                  element={
+                    <ProtectedRoute>
+                      <ManagerArticles />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/manager-product-details/:id"
-                  element={<ManagerProductDetails />}
+                  element={
+                    <ProtectedRoute>
+                      <ManagerProductDetails />
+                    </ProtectedRoute>
+                  }
                 />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
