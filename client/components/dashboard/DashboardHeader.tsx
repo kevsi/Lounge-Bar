@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useNotificationContext } from "@/main";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLogout } from "@/hooks/use-logout";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,16 +20,11 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
   const { showNotifications, setShowNotifications } = useNotificationContext();
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { handleLogout } = useLogout();
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
   };
 
   const getUserDisplayName = () => {
