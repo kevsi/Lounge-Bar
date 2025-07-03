@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useNotificationContext } from "@/main";
+import { useAuth } from "@/contexts/AuthContext";
+import { useLogout } from "@/hooks/use-logout";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,13 +20,16 @@ interface NewOrderHeaderProps {
 
 export function NewOrderHeader({ leftAction }: NewOrderHeaderProps) {
   const { showNotifications, setShowNotifications } = useNotificationContext();
+  const { user } = useAuth();
+  const { handleLogout } = useLogout();
+
+  const getUserInitials = () => {
+    if (!user) return "U";
+    return `${user.prenoms.charAt(0)}${user.nom.charAt(0)}`.toUpperCase();
+  };
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
-  };
-
-  const handleLogout = () => {
-    console.log("Déconnexion");
   };
 
   return (
@@ -75,7 +80,7 @@ export function NewOrderHeader({ leftAction }: NewOrderHeaderProps) {
                 <Avatar className="w-6 h-6 rounded-md">
                   <AvatarImage src="/placeholder.svg" alt="Profile" />
                   <AvatarFallback className="rounded-md text-xs bg-dashboard-yellow text-white">
-                    S1
+                    {getUserInitials()}
                   </AvatarFallback>
                 </Avatar>
                 <ChevronDown className="w-4 h-4 text-dashboard-dark" />
@@ -84,9 +89,18 @@ export function NewOrderHeader({ leftAction }: NewOrderHeaderProps) {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Serveur</p>
+                  <p className="text-sm font-medium leading-none">
+                    {user ? `${user.prenoms} ${user.nom}` : "Utilisateur"}
+                  </p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    serveur@restaurant.com
+                    {user?.email || "email@restaurant.com"}
+                  </p>
+                  <p className="text-xs leading-none text-dashboard-yellow font-semibold">
+                    {user?.role === "owner"
+                      ? "Supa Admin"
+                      : user?.role === "manager"
+                        ? "Manager"
+                        : "Employé"}
                   </p>
                 </div>
               </DropdownMenuLabel>
