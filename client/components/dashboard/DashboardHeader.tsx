@@ -6,6 +6,7 @@ import { useNotificationContext } from "@/main";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLogout } from "@/hooks/use-logout";
 import { UserProfileModal } from "@/components/ui/user-profile-modal";
+import { NotificationCenter } from "@/components/ui/notification-center";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -80,19 +81,8 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
 
         {/* Right Actions - Larger buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Notifications - Larger button */}
-          <div className="relative">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleNotificationClick}
-              className="w-10 h-10 bg-white rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors border-gray-200"
-            >
-              <Bell className="w-5 h-5 text-dashboard-dark" />
-            </Button>
-            {/* Notification dot */}
-            <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-dashboard-yellow rounded-full"></div>
-          </div>
+          {/* Notifications Center */}
+          <NotificationCenter />
 
           {/* Profile Dropdown - Larger */}
           <DropdownMenu>
