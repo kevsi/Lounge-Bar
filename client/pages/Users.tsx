@@ -5,7 +5,9 @@ import { UsersFilters } from "@/components/users/UsersFilters";
 import { UsersTable } from "@/components/users/UsersTable";
 import { AddUserModal, UserFormData } from "@/components/users/AddUserModal";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { PermissionAlert } from "@/components/ui/permission-alert";
 import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "@/components/ui/use-toast";
 
 export interface User {
   id: string;
@@ -120,7 +122,11 @@ function UsersPage() {
 
   const handleNewUser = () => {
     if (!canAddUsers) {
-      alert("Seul le propriétaire peut ajouter des utilisateurs");
+      toast({
+        title: "Accès refusé",
+        description: "Seul le Supa Admin peut ajouter des utilisateurs",
+        variant: "destructive",
+      });
       return;
     }
     setIsModalOpen(true);
@@ -137,6 +143,11 @@ function UsersPage() {
 
     // Apply current filters to include new user if it matches
     filterUsers(searchQuery, selectedRole, selectedAge, updatedUsers);
+
+    toast({
+      title: "Utilisateur ajouté",
+      description: `${userData.prenoms} ${userData.nom} a été ajouté avec succès`,
+    });
   };
 
   return (
@@ -147,9 +158,18 @@ function UsersPage() {
         <UsersHeader />
 
         <div className="flex-1 px-4 lg:px-6 py-4 lg:py-6">
-          <h1 className="text-lg lg:text-xl font-semibold text-dashboard-dark mb-6 sm:mb-7 lg:mb-8 pt-2 sm:pt-3 font-poppins">
+          <h1 className="text-lg lg:text-xl font-semibold text-dashboard-dark mb-4 sm:mb-5 lg:mb-6 pt-2 sm:pt-3 font-poppins">
             Utilisateurs
           </h1>
+
+          {!canAddUsers && (
+            <div className="mb-4">
+              <PermissionAlert
+                message="Vous pouvez consulter les utilisateurs mais seul le Supa Admin peut en ajouter"
+                requiredRole="Supa Admin"
+              />
+            </div>
+          )}
 
           <UsersFilters
             searchQuery={searchQuery}

@@ -350,8 +350,8 @@ export function OrderTable() {
   return (
     <div className="bg-white rounded-lg shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
-        {/* Desktop Table Header */}
-        <div className="hidden lg:grid lg:grid-cols-6 gap-1 sm:gap-2 p-2 sm:p-3 bg-gray-50 border-b min-w-[600px]">
+        {/* Table Header */}
+        <div className="grid grid-cols-6 gap-1 sm:gap-2 p-2 sm:p-3 bg-gray-50 border-b min-w-[600px]">
           <div className="font-semibold text-black text-center font-poppins text-xs">
             N° commande
           </div>
