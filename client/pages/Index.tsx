@@ -2,7 +2,8 @@ import { DemoResponse } from "@shared/api";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   BarChart3,
   Plus,
@@ -99,6 +100,15 @@ function FeatureCard({ title, description, icon }: FeatureCardProps) {
 
 export default function Index() {
   const [messageFromServer, setMessageFromServer] = useState("");
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   // Fetch message from server on component mount
   useEffect(() => {
