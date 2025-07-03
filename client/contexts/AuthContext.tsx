@@ -16,7 +16,11 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isOwner: boolean;
+  isManager: boolean;
+  isEmployee: boolean;
   canAddUsers: boolean;
+  canManageOrders: boolean;
+  canViewDashboard: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,10 +29,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const mockUsers: Array<User & { password: string }> = [
   {
     id: "1",
-    nom: "PROPRIETAIRE",
+    nom: "SUPER",
     prenoms: "Admin",
-    email: "owner@restaurant.com",
-    password: "owner123",
+    email: "admin@restaurant.com",
+    password: "admin123",
     role: "owner",
     telephone: "0123456789",
     age: 35,
@@ -101,7 +105,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const isOwner = user?.role === "owner";
-  const canAddUsers = isOwner; // Only owner can add users
+  const isManager = user?.role === "manager";
+  const isEmployee = user?.role === "employee";
+
+  // Permissions based on roles
+  const canAddUsers = isOwner; // Only supa admin (owner) can add users
+  const canManageOrders = isOwner || isManager; // Owner and managers can manage orders
+  const canViewDashboard = isAuthenticated; // All authenticated users can view dashboard
 
   const value: AuthContextType = {
     user,
@@ -109,7 +119,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     logout,
     isOwner,
+    isManager,
+    isEmployee,
     canAddUsers,
+    canManageOrders,
+    canViewDashboard,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
