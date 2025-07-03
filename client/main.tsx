@@ -22,6 +22,7 @@ import ManagerProductDetails from "./pages/ManagerProductDetails";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+import { SessionManager } from "./components/auth/SessionManager";
 
 interface NotificationContextType {
   showNotifications: boolean;
@@ -51,6 +52,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
+          <SessionManager />
           <NotificationContext.Provider
             value={{ showNotifications, setShowNotifications }}
           >
