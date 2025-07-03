@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 import Login from "@/pages/Login";
 
 interface ProtectedRouteProps {
@@ -12,6 +13,15 @@ export function ProtectedRoute({
   requireOwner = false,
 }: ProtectedRouteProps) {
   const { isAuthenticated, isOwner } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect authenticated users away from login page
+    if (isAuthenticated && location.pathname === "/login") {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, location.pathname, navigate]);
 
   if (!isAuthenticated) {
     return <Login />;
@@ -40,7 +50,10 @@ export function ProtectedRoute({
             Accès Restreint
           </h2>
           <p className="text-gray-600">
-            Seul le propriétaire peut accéder à cette section.
+            Seul le Supa Admin peut accéder à cette section.
+          </p>
+          <p className="text-sm text-gray-500 mt-2">
+            Cette action nécessite des privilèges administrateur.
           </p>
         </div>
       </div>
