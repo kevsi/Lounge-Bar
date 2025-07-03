@@ -52,7 +52,6 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <SessionManager />
           <NotificationContext.Provider
             value={{ showNotifications, setShowNotifications }}
           >
@@ -60,6 +59,7 @@ const App = () => {
             <Sonner />
             <FallbackBanner />
             <BrowserRouter>
+              <SessionManager />
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route
