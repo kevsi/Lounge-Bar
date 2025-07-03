@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useNotificationContext } from "@/main";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLogout } from "@/hooks/use-logout";
+import { UserProfileModal } from "@/components/ui/user-profile-modal";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +24,7 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
   const { showNotifications, setShowNotifications } = useNotificationContext();
   const { user } = useAuth();
   const { handleLogout } = useLogout();
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
@@ -122,7 +125,7 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setShowProfileModal(true)}>
                 <User className="mr-2 h-4 w-4" />
                 <span>Profil</span>
               </DropdownMenuItem>
@@ -135,6 +138,12 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
           </DropdownMenu>
         </div>
       </div>
+
+      {/* Profile Modal */}
+      <UserProfileModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+      />
     </header>
   );
 }
