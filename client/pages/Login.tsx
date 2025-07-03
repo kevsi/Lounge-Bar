@@ -8,12 +8,14 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Lock, Mail, AlertCircle } from "lucide-react";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, isLoading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const isFormLoading = isLoading || authLoading;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,6 +76,7 @@ export default function Login() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 focus-visible:border-dashboard-yellow"
+                    disabled={isFormLoading}
                     required
                   />
                 </div>
@@ -90,6 +93,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="pl-10 pr-10 focus-visible:border-dashboard-yellow"
+                    disabled={isFormLoading}
                     required
                   />
                   <button
@@ -105,9 +109,16 @@ export default function Login() {
               <Button
                 type="submit"
                 className="w-full bg-dashboard-yellow hover:bg-dashboard-yellow/90 text-white font-semibold"
-                disabled={isLoading}
+                disabled={isFormLoading}
               >
-                {isLoading ? "Connexion..." : "Se connecter"}
+                {isFormLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Connexion en cours...
+                  </div>
+                ) : (
+                  "Se connecter"
+                )}
               </Button>
             </form>
 
