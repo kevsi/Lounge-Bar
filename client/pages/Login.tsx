@@ -118,7 +118,7 @@ export default function Login() {
               </h4>
               <div className="text-xs text-gray-600 space-y-1">
                 <div>
-                  <strong>Propriétaire:</strong> owner@restaurant.com / owner123
+                  <strong>Supa Admin:</strong> admin@restaurant.com / admin123
                 </div>
                 <div>
                   <strong>Manager:</strong> manager@restaurant.com / manager123
@@ -127,6 +127,10 @@ export default function Login() {
                   <strong>Employé:</strong> employee@restaurant.com /
                   employee123
                 </div>
+              </div>
+              <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
+                <strong>Note:</strong> Seul le Supa Admin peut ajouter des
+                utilisateurs
               </div>
             </div>
           </CardContent>
