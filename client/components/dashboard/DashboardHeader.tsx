@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useNotificationContext } from "@/main";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,13 +20,42 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
   const { showNotifications, setShowNotifications } = useNotificationContext();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);
   };
 
   const handleLogout = () => {
-    console.log("Déconnexion");
+    logout();
+    navigate("/login");
+  };
+
+  const getUserDisplayName = () => {
+    if (!user) return "Utilisateur";
+    return `${user.prenoms} ${user.nom}`;
+  };
+
+  const getUserRole = () => {
+    if (!user) return "Utilisateur";
+    switch (user.role) {
+      case "owner":
+        return "Supa Admin";
+      case "manager":
+        return "Manager";
+      case "employee":
+        return "Employé";
+      default:
+        return "Utilisateur";
+    }
+  };
+
+  const getUserInitials = () => {
+    if (!user) return "U";
+    const firstInitial = user.prenoms.charAt(0).toUpperCase();
+    const lastInitial = user.nom.charAt(0).toUpperCase();
+    return `${firstInitial}${lastInitial}`;
   };
 
   return (
@@ -34,7 +65,7 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
         <div className="flex items-center gap-2 sm:gap-3 w-full lg:w-auto flex-shrink-0">
           {leftAction}
           <h1 className="text-sm sm:text-base lg:text-lg font-semibold text-dashboard-dark font-poppins truncate">
-            Hello, serveur
+            Hello, {user?.prenoms || "Utilisateur"}
           </h1>
         </div>
 
@@ -75,7 +106,7 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
                 <Avatar className="w-6 h-6 rounded-md">
                   <AvatarImage src="/placeholder.svg" alt="Profile" />
                   <AvatarFallback className="rounded-md text-xs bg-dashboard-yellow text-white">
-                    S1
+                    {getUserInitials()}
                   </AvatarFallback>
                 </Avatar>
                 <ChevronDown className="w-4 h-4 text-dashboard-dark" />
@@ -84,9 +115,14 @@ export function DashboardHeader({ leftAction }: DashboardHeaderProps) {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Serveur</p>
+                  <p className="text-sm font-medium leading-none">
+                    {getUserDisplayName()}
+                  </p>
                   <p className="text-xs leading-none text-muted-foreground">
-                    serveur@restaurant.com
+                    {user?.email || "email@restaurant.com"}
+                  </p>
+                  <p className="text-xs leading-none text-dashboard-yellow font-semibold">
+                    {getUserRole()}
                   </p>
                 </div>
               </DropdownMenuLabel>
