@@ -70,15 +70,6 @@ const sampleNotifications: Notification[] = [
     timestamp: "2 min",
     isRead: false,
     priority: "high",
-    hasActions: true,
-    actions: [
-      {
-        id: "serve",
-        label: "Servir",
-        type: "success",
-        icon: <Check className="w-4 h-4" />,
-      },
-    ],
     orderInfo: {
       number: "C142",
       table: "T05",
