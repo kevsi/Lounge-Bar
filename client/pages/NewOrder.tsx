@@ -161,6 +161,8 @@ export default function NewOrder() {
                   <MenuGrid
                     searchQuery={searchQuery}
                     selectedCategory={selectedCategory}
+                    sortBy={sortBy}
+                    priceRange={priceRange}
                     onAddToCart={addToCart}
                   />
                 </div>
