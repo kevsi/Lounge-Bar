@@ -48,6 +48,12 @@ export default function NewOrder() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState<"name" | "price-asc" | "price-desc">(
+    "name",
+  );
+  const [priceRange, setPriceRange] = useState<
+    "all" | "0-3000" | "3000-5000" | "5000+"
+  >("all");
 
   const addToCart = (item: MenuItem) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
