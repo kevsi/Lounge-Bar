@@ -47,6 +47,7 @@ export default function NewOrder() {
   const [tableNumber, setTableNumber] = useState("T12");
   const [tip, setTip] = useState(500);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState<"name" | "price-asc" | "price-desc">(
