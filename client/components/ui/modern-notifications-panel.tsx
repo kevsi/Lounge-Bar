@@ -89,15 +89,6 @@ const sampleNotifications: Notification[] = [
     timestamp: "5 min",
     isRead: false,
     priority: "medium",
-    hasActions: true,
-    actions: [
-      {
-        id: "print-bill",
-        label: "Imprimer",
-        type: "primary",
-        icon: <ShoppingCart className="w-4 h-4" />,
-      },
-    ],
   },
   {
     id: "3",
