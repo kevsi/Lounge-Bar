@@ -4,9 +4,14 @@ import { MobileMenuItemCard } from "@/components/ui/mobile-menu-item-card";
 import { useBreakpoint } from "@/hooks/use-mobile";
 import type { MenuItem } from "@/pages/NewOrder";
 
+type SortBy = "name" | "price-asc" | "price-desc";
+type PriceRange = "all" | "0-3000" | "3000-5000" | "5000+";
+
 interface MenuGridProps {
   searchQuery: string;
   selectedCategory: string;
+  sortBy: SortBy;
+  priceRange: PriceRange;
   onAddToCart: (item: MenuItem) => void;
 }
 
