@@ -1,6 +1,16 @@
 import { Search, Calendar, Filter, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+
+type SortBy = "name" | "price-asc" | "price-desc";
+type PriceRange = "all" | "0-3000" | "3000-5000" | "5000+";
 
 interface MenuFiltersProps {
   searchQuery: string;
@@ -8,6 +18,33 @@ interface MenuFiltersProps {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
 }
+
+interface MenuFiltersState {
+  sortBy: SortBy;
+  priceRange: PriceRange;
+}
+
+const categories = [
+  { value: "all", label: "Toutes les catégories" },
+  { value: "champagne", label: "Champagne" },
+  { value: "cocktails", label: "Cocktails" },
+  { value: "bières", label: "Bières" },
+  { value: "vins", label: "Vins" },
+  { value: "sodas", label: "Sodas" },
+];
+
+const sortOptions = [
+  { value: "name" as SortBy, label: "Par nom (A-Z)" },
+  { value: "price-asc" as SortBy, label: "Prix croissant" },
+  { value: "price-desc" as SortBy, label: "Prix décroissant" },
+];
+
+const priceRanges = [
+  { value: "all" as PriceRange, label: "Tous les prix" },
+  { value: "0-3000" as PriceRange, label: "0 - 3,000F" },
+  { value: "3000-5000" as PriceRange, label: "3,000 - 5,000F" },
+  { value: "5000+" as PriceRange, label: "5,000F+" },
+];
 
 export function MenuFilters({
   searchQuery,
