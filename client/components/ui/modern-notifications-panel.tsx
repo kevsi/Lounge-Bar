@@ -295,14 +295,6 @@ export function ModernNotificationsPanel({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 w-8 p-0 hover:bg-gray-100"
-                    title="Paramètres"
-                  >
-                    <Settings className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
                     onClick={onClose}
                     className="h-8 w-8 p-0 hover:bg-gray-100"
                   >
