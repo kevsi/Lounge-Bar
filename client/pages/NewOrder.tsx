@@ -196,6 +196,15 @@ export default function NewOrder() {
         </div>
       </ResponsiveLayout>
 
+      {/* Saving Animation */}
+      <SavingAnimation
+        isVisible={isSaving}
+        message="Enregistrement de votre commande en cours..."
+        successMessage="Commande enregistrée avec succès !"
+        onComplete={handleSavingComplete}
+        duration={1500}
+      />
+
       {/* Success Modal */}
       {showSuccessModal && <OrderSuccessModal onClose={handleCloseModal} />}
     </>
