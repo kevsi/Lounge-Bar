@@ -189,6 +189,7 @@ export default function NewOrder() {
                 tableNumber={tableNumber}
                 onTableNumberChange={setTableNumber}
                 onTipChange={handleTipChange}
+                isSaving={isSaving}
               />
             </div>
           </div>
