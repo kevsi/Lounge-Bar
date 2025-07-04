@@ -108,8 +108,13 @@ export default function NewOrder() {
     setTip(newTip);
   };
 
-  const handleSaveOrder = () => {
+  const handleSaveOrder = async () => {
     try {
+      setIsSaving(true);
+
+      // Simuler un délai de sauvegarde
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       console.log("Saving order:", {
         tableNumber,
         items: cartItems,
@@ -121,10 +126,15 @@ export default function NewOrder() {
       // Générer un numéro de commande
       const orderNumber = `C${Date.now().toString().slice(-3)}`;
       notifications.orderCreated(orderNumber);
-      setShowSuccessModal(true);
     } catch (error) {
+      setIsSaving(false);
       notifications.actionError("Cr��ation de la commande");
     }
+  };
+
+  const handleSavingComplete = () => {
+    setIsSaving(false);
+    setShowSuccessModal(true);
   };
 
   const handleCloseModal = () => {
