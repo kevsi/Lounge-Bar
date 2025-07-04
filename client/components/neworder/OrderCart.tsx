@@ -13,6 +13,7 @@ interface OrderCartProps {
   tableNumber: string;
   onTableNumberChange: (value: string) => void;
   onTipChange: (value: number) => void;
+  isSaving?: boolean;
 }
 
 export function OrderCart({
