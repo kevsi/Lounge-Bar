@@ -148,9 +148,16 @@ export function OrderCart({
       <Button
         onClick={onSaveOrder}
         className="w-full mt-6 bg-dashboard-yellow hover:bg-dashboard-yellow/90 text-white font-poppins text-lg py-4 rounded-2xl"
-        disabled={items.length === 0}
+        disabled={items.length === 0 || isSaving}
       >
-        Enregistrer
+        {isSaving ? (
+          <div className="flex items-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <span>Enregistrement...</span>
+          </div>
+        ) : (
+          "Enregistrer"
+        )}
       </Button>
     </div>
   );
