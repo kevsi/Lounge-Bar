@@ -55,10 +55,11 @@ export function MenuFilters({
   onSearchChange,
   selectedCategory,
   onCategoryChange,
+  sortBy,
+  onSortByChange,
+  priceRange,
+  onPriceRangeChange,
 }: MenuFiltersProps) {
-  const [sortBy, setSortBy] = useState<SortBy>("name");
-  const [priceRange, setPriceRange] = useState<PriceRange>("all");
-
   const currentCategory = categories.find(
     (cat) => cat.value === selectedCategory,
   );
