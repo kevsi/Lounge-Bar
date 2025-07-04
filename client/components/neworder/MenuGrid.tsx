@@ -54,6 +54,70 @@ const menuItems: (MenuItem & { isPopular?: boolean; description?: string })[] =
         "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
       category: "cocktails",
     },
+    {
+      id: "5",
+      name: "Dom Pérignon",
+      price: 25000,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F3c639019e64345d6b4f2b67b537ac1c3?format=webp&width=800",
+      category: "champagne",
+    },
+    {
+      id: "6",
+      name: "Heineken",
+      price: 2500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "bières",
+    },
+    {
+      id: "7",
+      name: "Corona",
+      price: 2800,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "bières",
+    },
+    {
+      id: "8",
+      name: "Bordeaux Rouge",
+      price: 6000,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "vins",
+    },
+    {
+      id: "9",
+      name: "Chardonnay",
+      price: 5500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "vins",
+    },
+    {
+      id: "10",
+      name: "Coca-Cola",
+      price: 1500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "sodas",
+    },
+    {
+      id: "11",
+      name: "Sprite",
+      price: 1500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "sodas",
+    },
+    {
+      id: "12",
+      name: "Whisky Sour",
+      price: 4800,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "cocktails",
+    },
   ];
 
 export function MenuGrid({
