@@ -166,7 +166,7 @@ export function MenuFilters({
               {priceRanges.map((range) => (
                 <DropdownMenuItem
                   key={range.value}
-                  onClick={() => setPriceRange(range.value)}
+                  onClick={() => onPriceRangeChange(range.value)}
                   className={priceRange === range.value ? "bg-gray-100" : ""}
                 >
                   {range.label}
