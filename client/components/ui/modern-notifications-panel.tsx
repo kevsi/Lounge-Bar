@@ -185,21 +185,6 @@ const getPriorityColor = (priority?: string) => {
   }
 };
 
-const getActionButtonClass = (type: NotificationAction["type"]) => {
-  switch (type) {
-    case "primary":
-      return "bg-blue-500 text-white hover:bg-blue-600 shadow-sm";
-    case "secondary":
-      return "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200";
-    case "success":
-      return "bg-green-500 text-white hover:bg-green-600 shadow-sm";
-    case "warning":
-      return "bg-orange-500 text-white hover:bg-orange-600 shadow-sm";
-    default:
-      return "bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200";
-  }
-};
-
 export function ModernNotificationsPanel({
   isOpen,
   onClose,
