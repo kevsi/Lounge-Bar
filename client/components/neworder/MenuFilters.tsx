@@ -17,6 +17,10 @@ interface MenuFiltersProps {
   onSearchChange: (query: string) => void;
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
+  sortBy: SortBy;
+  onSortByChange: (sortBy: SortBy) => void;
+  priceRange: PriceRange;
+  onPriceRangeChange: (priceRange: PriceRange) => void;
 }
 
 interface MenuFiltersState {
