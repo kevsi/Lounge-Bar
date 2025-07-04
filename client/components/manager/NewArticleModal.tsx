@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { X, Upload, ChevronDown } from "lucide-react";
+import { X, Upload, ChevronDown, Loader2 } from "lucide-react";
+import { SavingAnimation } from "@/components/ui/saving-animation";
 
 interface NewArticleModalProps {
   isOpen: boolean;
