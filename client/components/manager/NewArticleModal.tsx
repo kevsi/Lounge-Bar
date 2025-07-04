@@ -268,9 +268,17 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#037AFE] border border-[#0A6FF9] rounded-sm text-white font-inter text-xs font-bold hover:bg-blue-600 transition-colors"
+                  className="px-6 py-3 bg-[#037AFE] border border-[#0A6FF9] rounded-sm text-white font-inter text-xs font-bold hover:bg-blue-600 transition-colors disabled:opacity-50"
+                  disabled={isSaving}
                 >
-                  Ajouter
+                  {isSaving ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Ajout...</span>
+                    </div>
+                  ) : (
+                    "Ajouter"
+                  )}
                 </button>
               </div>
             </div>
