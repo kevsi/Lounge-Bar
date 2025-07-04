@@ -52,6 +52,17 @@ export function MenuFilters({
   selectedCategory,
   onCategoryChange,
 }: MenuFiltersProps) {
+  const [sortBy, setSortBy] = useState<SortBy>("name");
+  const [priceRange, setPriceRange] = useState<PriceRange>("all");
+
+  const currentCategory = categories.find(
+    (cat) => cat.value === selectedCategory,
+  );
+  const currentSort = sortOptions.find((sort) => sort.value === sortBy);
+  const currentPriceRange = priceRanges.find(
+    (range) => range.value === priceRange,
+  );
+
   return (
     <div className="bg-slate-50 rounded-xl border border-slate-200 p-4 lg:p-6">
       {/* Mobile: Stacked layout */}
@@ -59,58 +70,105 @@ export function MenuFilters({
         {/* Filter buttons row */}
         <div className="flex flex-wrap items-center gap-2 lg:gap-3">
           {/* Category Filter */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
-            >
-              Catégorie
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
-            >
-              <ChevronDown className="w-3 h-3 lg:w-4 lg:h-4" />
-            </Button>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
+                >
+                  {currentCategory?.label || "Catégorie"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
+                >
+                  <ChevronDown className="w-3 h-3 lg:w-4 lg:h-4" />
+                </Button>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              {categories.map((category) => (
+                <DropdownMenuItem
+                  key={category.value}
+                  onClick={() => onCategoryChange(category.value)}
+                  className={
+                    selectedCategory === category.value ? "bg-gray-100" : ""
+                  }
+                >
+                  {category.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-          {/* Name Filter */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
-            >
-              Noms
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
-            >
-              <Calendar className="w-3 h-3 lg:w-4 lg:h-4" />
-            </Button>
-          </div>
+          {/* Sort Filter */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
+                >
+                  {currentSort?.label || "Tri"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
+                >
+                  <Calendar className="w-3 h-3 lg:w-4 lg:h-4" />
+                </Button>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              {sortOptions.map((option) => (
+                <DropdownMenuItem
+                  key={option.value}
+                  onClick={() => setSortBy(option.value)}
+                  className={sortBy === option.value ? "bg-gray-100" : ""}
+                >
+                  {option.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Price Filter */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
-            >
-              Prix
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
-            >
-              <Filter className="w-3 h-3 lg:w-4 lg:h-4" />
-            </Button>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-gray-300 border-0 text-black font-inter text-xs lg:text-sm"
+                >
+                  {currentPriceRange?.label || "Prix"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="bg-slate-50 border-gray-300 shadow-sm h-8 w-8 lg:h-10 lg:w-10"
+                >
+                  <Filter className="w-3 h-3 lg:w-4 lg:h-4" />
+                </Button>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              {priceRanges.map((range) => (
+                <DropdownMenuItem
+                  key={range.value}
+                  onClick={() => setPriceRange(range.value)}
+                  className={priceRange === range.value ? "bg-gray-100" : ""}
+                >
+                  {range.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Search Input */}
