@@ -76,8 +76,13 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSaving(true);
+
+    // Simuler un délai de sauvegarde
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     onSubmit({
       name: formData.name,
       category: formData.category,
@@ -86,6 +91,10 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
       description: formData.description,
       image: selectedImage || undefined,
     });
+  };
+
+  const handleSavingComplete = () => {
+    setIsSaving(false);
     onClose();
     setFormData({
       name: "",
