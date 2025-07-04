@@ -295,6 +295,15 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Saving Animation */}
+      <SavingAnimation
+        isVisible={isSaving}
+        message="Enregistrement de l'article en cours..."
+        successMessage="Article ajouté avec succès !"
+        onComplete={handleSavingComplete}
+        duration={1500}
+      />
     </div>
   );
 };
