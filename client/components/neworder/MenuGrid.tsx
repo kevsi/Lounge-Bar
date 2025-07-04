@@ -171,7 +171,7 @@ export function MenuGrid({
   // Mobile layout with details modal
   if (breakpoint === "mobile") {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 pb-4">
         {filteredItems.map((item, index) => (
           <MobileMenuItemCard
             key={item.id}
@@ -187,7 +187,7 @@ export function MenuGrid({
 
   // Desktop layout (existing) - Optimized for 4 cards
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pb-4">
       {filteredItems.map((item) => (
         <div
           key={item.id}
