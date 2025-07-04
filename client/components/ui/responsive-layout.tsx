@@ -63,9 +63,7 @@ export function ResponsiveLayout({
           )}
 
           {/* Main content area */}
-          <main className="flex-1 overflow-auto leading-normal scrollbar-subtle text-sm">
-            {children}
-          </main>
+          <main className="flex-1 leading-normal text-sm">{children}</main>
         </div>
       </div>
     </div>
