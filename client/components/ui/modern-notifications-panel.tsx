@@ -10,7 +10,6 @@ import {
   CheckCircle,
   Trash2,
   Bell,
-  Settings,
   MoreHorizontal,
   Archive,
 } from "lucide-react";
