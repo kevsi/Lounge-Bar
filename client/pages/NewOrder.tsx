@@ -128,44 +128,48 @@ export default function NewOrder() {
   return (
     <>
       <ResponsiveLayout navItems={navItems} header={<NewOrderHeader />}>
-        {/* Filters */}
-        <div className="px-4 lg:px-6 py-3">
-          <MenuFilters
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-          />
-        </div>
+        <div className="flex flex-col h-full">
+          {/* Filters */}
+          <div className="flex-shrink-0 px-4 lg:px-6 py-3">
+            <MenuFilters
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
+          </div>
 
-        {/* Content Area */}
-        <div className="flex-1 px-4 lg:px-6 pb-4">
-          <div className="flex flex-col xl:flex-row gap-3 lg:gap-4 h-full">
-            {/* Menu Grid */}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-xl lg:text-2xl font-bold text-dashboard-dark mb-5 sm:mb-6 lg:mb-7 pt-2 sm:pt-3 font-poppins">
-                Liste des articles
-              </h2>
-              <MenuGrid
-                searchQuery={searchQuery}
-                selectedCategory={selectedCategory}
-                onAddToCart={addToCart}
-              />
-            </div>
+          {/* Content Area */}
+          <div className="flex-1 px-4 lg:px-6 pb-4 min-h-0">
+            <div className="flex flex-col xl:flex-row gap-3 lg:gap-4 h-full">
+              {/* Menu Grid - Scrollable */}
+              <div className="flex-1 min-w-0 flex flex-col">
+                <h2 className="text-xl lg:text-2xl font-bold text-dashboard-dark mb-5 sm:mb-6 lg:mb-7 pt-2 sm:pt-3 font-poppins flex-shrink-0">
+                  Liste des articles
+                </h2>
+                <div className="flex-1 overflow-y-auto pr-2">
+                  <MenuGrid
+                    searchQuery={searchQuery}
+                    selectedCategory={selectedCategory}
+                    onAddToCart={addToCart}
+                  />
+                </div>
+              </div>
 
-            {/* Order Cart */}
-            <div className="w-full xl:w-80 flex-shrink-0">
-              <OrderCart
-                items={cartItems}
-                onUpdateQuantity={updateQuantity}
-                subtotal={calculateSubtotal()}
-                tip={tip}
-                total={calculateTotal()}
-                onSaveOrder={handleSaveOrder}
-                tableNumber={tableNumber}
-                onTableNumberChange={setTableNumber}
-                onTipChange={handleTipChange}
-              />
+              {/* Order Cart - Fixed */}
+              <div className="w-full xl:w-80 flex-shrink-0">
+                <OrderCart
+                  items={cartItems}
+                  onUpdateQuantity={updateQuantity}
+                  subtotal={calculateSubtotal()}
+                  tip={tip}
+                  total={calculateTotal()}
+                  onSaveOrder={handleSaveOrder}
+                  tableNumber={tableNumber}
+                  onTableNumberChange={setTableNumber}
+                  onTipChange={handleTipChange}
+                />
+              </div>
             </div>
           </div>
         </div>
