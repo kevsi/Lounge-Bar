@@ -448,34 +448,6 @@ export function ModernNotificationsPanel({
                                 </div>
                               </motion.div>
                             )}
-
-                            {/* Actions */}
-                            {notification.hasActions &&
-                              notification.actions && (
-                                <div className="flex gap-2">
-                                  {notification.actions.map((action) => (
-                                    <Button
-                                      key={action.id}
-                                      size="sm"
-                                      className={cn(
-                                        "h-8 px-3 text-xs font-medium transition-all duration-200 hover:scale-105",
-                                        getActionButtonClass(action.type),
-                                      )}
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        markAsRead(notification.id);
-                                      }}
-                                    >
-                                      {action.icon && (
-                                        <span className="mr-1">
-                                          {action.icon}
-                                        </span>
-                                      )}
-                                      {action.label}
-                                    </Button>
-                                  ))}
-                                </div>
-                              )}
                           </div>
                         </div>
                       </motion.div>
