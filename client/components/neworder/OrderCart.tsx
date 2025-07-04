@@ -26,6 +26,7 @@ export function OrderCart({
   tableNumber,
   onTableNumberChange,
   onTipChange,
+  isSaving = false,
 }: OrderCartProps) {
   return (
     <div className="bg-white rounded-lg p-4 sm:p-6 h-fit min-w-0">
