@@ -30,6 +30,7 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   if (!isOpen) return null;
 
