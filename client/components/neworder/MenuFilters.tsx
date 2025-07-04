@@ -133,7 +133,7 @@ export function MenuFilters({
               {sortOptions.map((option) => (
                 <DropdownMenuItem
                   key={option.value}
-                  onClick={() => setSortBy(option.value)}
+                  onClick={() => onSortByChange(option.value)}
                   className={sortBy === option.value ? "bg-gray-100" : ""}
                 >
                   {option.label}
