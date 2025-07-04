@@ -6,6 +6,7 @@ import { OrderCart } from "@/components/neworder/OrderCart";
 import { OrderSuccessModal } from "@/components/neworder/OrderSuccessModal";
 import { ResponsiveLayout } from "@/components/ui/responsive-layout";
 import { NavItem } from "@/components/ui/responsive-sidebar";
+import { SavingAnimation } from "@/components/ui/saving-animation";
 import { useState } from "react";
 import { useNotifications } from "@/hooks/use-notifications";
 
