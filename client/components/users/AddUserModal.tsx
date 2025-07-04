@@ -48,6 +48,7 @@ export function AddUserModal({
   });
 
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleInputChange = (
     field: keyof UserFormData,
