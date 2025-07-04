@@ -142,6 +142,10 @@ export default function NewOrder() {
               onSearchChange={setSearchQuery}
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}
+              sortBy={sortBy}
+              onSortByChange={setSortBy}
+              priceRange={priceRange}
+              onPriceRangeChange={setPriceRange}
             />
           </div>
 
