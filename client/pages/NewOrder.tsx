@@ -149,38 +149,39 @@ export default function NewOrder() {
             />
           </div>
 
-        {/* Content Area */}
-        <div className="px-4 lg:px-6 pb-4 flex-1 min-h-0">
-          <div className="flex flex-col xl:flex-row gap-3 lg:gap-4 h-full">
-            {/* Menu Grid - Scrollable Articles */}
-            <div className="flex-1 min-w-0 flex flex-col">
-              <h2 className="text-xl lg:text-2xl font-bold text-dashboard-dark mb-5 sm:mb-6 lg:mb-7 pt-2 sm:pt-3 font-poppins flex-shrink-0">
-                Liste des articles
-              </h2>
-              <div className="flex-1 overflow-y-auto min-h-0">
-                <MenuGrid
-                  searchQuery={searchQuery}
-                  selectedCategory={selectedCategory}
-                  sortBy={sortBy}
-                  priceRange={priceRange}
-                  onAddToCart={addToCart}
+          {/* Content Area */}
+          <div className="px-4 lg:px-6 pb-4 flex-1 min-h-0">
+            <div className="flex flex-col xl:flex-row gap-3 lg:gap-4 h-full">
+              {/* Menu Grid - Scrollable Articles */}
+              <div className="flex-1 min-w-0 flex flex-col">
+                <h2 className="text-xl lg:text-2xl font-bold text-dashboard-dark mb-5 sm:mb-6 lg:mb-7 pt-2 sm:pt-3 font-poppins flex-shrink-0">
+                  Liste des articles
+                </h2>
+                <div className="flex-1 overflow-y-auto min-h-0">
+                  <MenuGrid
+                    searchQuery={searchQuery}
+                    selectedCategory={selectedCategory}
+                    sortBy={sortBy}
+                    priceRange={priceRange}
+                    onAddToCart={addToCart}
+                  />
+                </div>
+              </div>
+
+              {/* Order Cart - Scrollable Form */}
+              <div className="w-full xl:w-80 flex-shrink-0 h-full overflow-y-auto">
+                <OrderCart
+                  items={cartItems}
+                  onUpdateQuantity={updateQuantity}
+                  subtotal={calculateSubtotal()}
+                  tip={tip}
+                  total={calculateTotal()}
+                  onSaveOrder={handleSaveOrder}
+                  tableNumber={tableNumber}
+                  onTableNumberChange={setTableNumber}
+                  onTipChange={handleTipChange}
                 />
               </div>
-            </div>
-
-            {/* Order Cart - Scrollable Form */}
-            <div className="w-full xl:w-80 flex-shrink-0 h-full overflow-y-auto">
-              <OrderCart
-                items={cartItems}
-                onUpdateQuantity={updateQuantity}
-                subtotal={calculateSubtotal()}
-                tip={tip}
-                total={calculateTotal()}
-                onSaveOrder={handleSaveOrder}
-                tableNumber={tableNumber}
-                onTableNumberChange={setTableNumber}
-                onTipChange={handleTipChange}
-              />
             </div>
           </div>
         </div>
