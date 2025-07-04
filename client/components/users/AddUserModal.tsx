@@ -300,12 +300,29 @@ export function AddUserModal({
             <Button
               type="submit"
               className="flex-1 h-12 bg-dashboard-yellow hover:bg-dashboard-yellow/90 text-black font-poppins"
+              disabled={isSaving}
             >
-              Ajouter Utilisateur
+              {isSaving ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Ajout...</span>
+                </div>
+              ) : (
+                "Ajouter Utilisateur"
+              )}
             </Button>
           </div>
         </form>
       </DialogContent>
+
+      {/* Saving Animation */}
+      <SavingAnimation
+        isVisible={isSaving}
+        message="Ajout du nouvel utilisateur..."
+        successMessage="Utilisateur ajouté avec succès !"
+        onComplete={handleSavingComplete}
+        duration={1000}
+      />
     </Dialog>
   );
 }
