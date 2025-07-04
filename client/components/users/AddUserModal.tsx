@@ -103,13 +103,22 @@ export function AddUserModal({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
+      setIsSaving(true);
+
+      // Simuler un délai de sauvegarde
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       onAddUser(formData);
-      handleClose();
     }
+  };
+
+  const handleSavingComplete = () => {
+    setIsSaving(false);
+    handleClose();
   };
 
   const handleClose = () => {
