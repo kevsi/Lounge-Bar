@@ -4,9 +4,14 @@ import { MobileMenuItemCard } from "@/components/ui/mobile-menu-item-card";
 import { useBreakpoint } from "@/hooks/use-mobile";
 import type { MenuItem } from "@/pages/NewOrder";
 
+type SortBy = "name" | "price-asc" | "price-desc";
+type PriceRange = "all" | "0-3000" | "3000-5000" | "5000+";
+
 interface MenuGridProps {
   searchQuery: string;
   selectedCategory: string;
+  sortBy: SortBy;
+  priceRange: PriceRange;
   onAddToCart: (item: MenuItem) => void;
 }
 
@@ -49,28 +54,124 @@ const menuItems: (MenuItem & { isPopular?: boolean; description?: string })[] =
         "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
       category: "cocktails",
     },
+    {
+      id: "5",
+      name: "Dom Pérignon",
+      price: 25000,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F3c639019e64345d6b4f2b67b537ac1c3?format=webp&width=800",
+      category: "champagne",
+    },
+    {
+      id: "6",
+      name: "Heineken",
+      price: 2500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "bières",
+    },
+    {
+      id: "7",
+      name: "Corona",
+      price: 2800,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "bières",
+    },
+    {
+      id: "8",
+      name: "Bordeaux Rouge",
+      price: 6000,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "vins",
+    },
+    {
+      id: "9",
+      name: "Chardonnay",
+      price: 5500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "vins",
+    },
+    {
+      id: "10",
+      name: "Coca-Cola",
+      price: 1500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "sodas",
+    },
+    {
+      id: "11",
+      name: "Sprite",
+      price: 1500,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "sodas",
+    },
+    {
+      id: "12",
+      name: "Whisky Sour",
+      price: 4800,
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F9598003611af423eab7c134af77a1af0%2F78661e7e35694c88aafdf6c26f62d581?format=webp&width=800",
+      category: "cocktails",
+    },
   ];
 
 export function MenuGrid({
   searchQuery,
   selectedCategory,
+  sortBy,
+  priceRange,
   onAddToCart,
 }: MenuGridProps) {
   const breakpoint = useBreakpoint();
 
-  const filteredItems = menuItems.filter((item) => {
-    const matchesSearch = item.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredItems = menuItems
+    .filter((item) => {
+      const matchesSearch = item.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
+
+      // Price range filtering
+      let matchesPriceRange = true;
+      if (priceRange !== "all") {
+        switch (priceRange) {
+          case "0-3000":
+            matchesPriceRange = item.price <= 3000;
+            break;
+          case "3000-5000":
+            matchesPriceRange = item.price > 3000 && item.price <= 5000;
+            break;
+          case "5000+":
+            matchesPriceRange = item.price > 5000;
+            break;
+        }
+      }
+
+      return matchesSearch && matchesCategory && matchesPriceRange;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "name":
+          return a.name.localeCompare(b.name);
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        default:
+          return 0;
+      }
+    });
 
   // Mobile layout with details modal
   if (breakpoint === "mobile") {
     return (
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 pb-4">
         {filteredItems.map((item, index) => (
           <MobileMenuItemCard
             key={item.id}
@@ -86,7 +187,7 @@ export function MenuGrid({
 
   // Desktop layout (existing) - Optimized for 4 cards
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pb-4">
       {filteredItems.map((item) => (
         <div
           key={item.id}

@@ -47,7 +47,7 @@ export function ResponsiveLayout({
         </ResponsiveSidebar>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Header with mobile toggle */}
           {header && (
             <div className="flex-shrink-0">
@@ -63,7 +63,7 @@ export function ResponsiveLayout({
           )}
 
           {/* Main content area */}
-          <main className="flex-1 overflow-auto leading-normal scrollbar-subtle text-sm">
+          <main className="flex-1 overflow-auto leading-normal text-sm">
             {children}
           </main>
         </div>

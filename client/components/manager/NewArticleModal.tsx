@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { X, Upload, ChevronDown } from "lucide-react";
+import { X, Upload, ChevronDown, Loader2 } from "lucide-react";
+import { SavingAnimation } from "@/components/ui/saving-animation";
 
 interface NewArticleModalProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   if (!isOpen) return null;
 
@@ -74,8 +76,13 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSaving(true);
+
+    // Simuler un délai de sauvegarde
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     onSubmit({
       name: formData.name,
       category: formData.category,
@@ -84,6 +91,10 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
       description: formData.description,
       image: selectedImage || undefined,
     });
+  };
+
+  const handleSavingComplete = () => {
+    setIsSaving(false);
     onClose();
     setFormData({
       name: "",
@@ -257,9 +268,17 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#037AFE] border border-[#0A6FF9] rounded-sm text-white font-inter text-xs font-bold hover:bg-blue-600 transition-colors"
+                  className="px-6 py-3 bg-[#037AFE] border border-[#0A6FF9] rounded-sm text-white font-inter text-xs font-bold hover:bg-blue-600 transition-colors disabled:opacity-50"
+                  disabled={isSaving}
                 >
-                  Ajouter
+                  {isSaving ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Ajout...</span>
+                    </div>
+                  ) : (
+                    "Ajouter"
+                  )}
                 </button>
               </div>
             </div>
@@ -276,6 +295,15 @@ export const NewArticleModal: React.FC<NewArticleModalProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Saving Animation */}
+      <SavingAnimation
+        isVisible={isSaving}
+        message="Enregistrement de l'article en cours..."
+        successMessage="Article ajouté avec succès !"
+        onComplete={handleSavingComplete}
+        duration={1500}
+      />
     </div>
   );
 };

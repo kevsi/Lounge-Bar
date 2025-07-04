@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { SavingAnimation } from "@/components/ui/saving-animation";
 
 interface AddUserModalProps {
   isOpen: boolean;
@@ -47,6 +48,7 @@ export function AddUserModal({
   });
 
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleInputChange = (
     field: keyof UserFormData,
@@ -101,13 +103,22 @@ export function AddUserModal({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
+      setIsSaving(true);
+
+      // Simuler un délai de sauvegarde
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       onAddUser(formData);
-      handleClose();
     }
+  };
+
+  const handleSavingComplete = () => {
+    setIsSaving(false);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -289,12 +300,29 @@ export function AddUserModal({
             <Button
               type="submit"
               className="flex-1 h-12 bg-dashboard-yellow hover:bg-dashboard-yellow/90 text-black font-poppins"
+              disabled={isSaving}
             >
-              Ajouter Utilisateur
+              {isSaving ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Ajout...</span>
+                </div>
+              ) : (
+                "Ajouter Utilisateur"
+              )}
             </Button>
           </div>
         </form>
       </DialogContent>
+
+      {/* Saving Animation */}
+      <SavingAnimation
+        isVisible={isSaving}
+        message="Ajout du nouvel utilisateur..."
+        successMessage="Utilisateur ajouté avec succès !"
+        onComplete={handleSavingComplete}
+        duration={1000}
+      />
     </Dialog>
   );
 }

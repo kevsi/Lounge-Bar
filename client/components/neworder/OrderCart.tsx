@@ -1,4 +1,4 @@
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { CartItem } from "@/pages/NewOrder";
@@ -13,6 +13,7 @@ interface OrderCartProps {
   tableNumber: string;
   onTableNumberChange: (value: string) => void;
   onTipChange: (value: number) => void;
+  isSaving?: boolean;
 }
 
 export function OrderCart({
@@ -25,6 +26,7 @@ export function OrderCart({
   tableNumber,
   onTableNumberChange,
   onTipChange,
+  isSaving = false,
 }: OrderCartProps) {
   return (
     <div className="bg-white rounded-lg p-4 sm:p-6 h-fit min-w-0">
@@ -49,7 +51,7 @@ export function OrderCart({
       </div>
 
       {/* Cart Items */}
-      <div className="space-y-3 mb-6 max-h-96 overflow-y-auto">
+      <div className="space-y-3 mb-6 max-h-80 overflow-y-auto">
         {items.length === 0 ? (
           <p className="text-dashboard-muted text-center py-8">
             Aucun article dans la commande
@@ -146,9 +148,16 @@ export function OrderCart({
       <Button
         onClick={onSaveOrder}
         className="w-full mt-6 bg-dashboard-yellow hover:bg-dashboard-yellow/90 text-white font-poppins text-lg py-4 rounded-2xl"
-        disabled={items.length === 0}
+        disabled={items.length === 0 || isSaving}
       >
-        Enregistrer
+        {isSaving ? (
+          <div className="flex items-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <span>Enregistrement...</span>
+          </div>
+        ) : (
+          "Enregistrer"
+        )}
       </Button>
     </div>
   );
