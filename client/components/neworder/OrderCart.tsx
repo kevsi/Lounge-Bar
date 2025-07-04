@@ -49,7 +49,7 @@ export function OrderCart({
       </div>
 
       {/* Cart Items */}
-      <div className="space-y-3 mb-6 max-h-96 overflow-y-auto">
+      <div className="space-y-3 mb-6">
         {items.length === 0 ? (
           <p className="text-dashboard-muted text-center py-8">
             Aucun article dans la commande
