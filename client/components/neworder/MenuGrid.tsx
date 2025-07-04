@@ -59,18 +59,50 @@ const menuItems: (MenuItem & { isPopular?: boolean; description?: string })[] =
 export function MenuGrid({
   searchQuery,
   selectedCategory,
+  sortBy,
+  priceRange,
   onAddToCart,
 }: MenuGridProps) {
   const breakpoint = useBreakpoint();
 
-  const filteredItems = menuItems.filter((item) => {
-    const matchesSearch = item.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || item.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredItems = menuItems
+    .filter((item) => {
+      const matchesSearch = item.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || item.category === selectedCategory;
+
+      // Price range filtering
+      let matchesPriceRange = true;
+      if (priceRange !== "all") {
+        switch (priceRange) {
+          case "0-3000":
+            matchesPriceRange = item.price <= 3000;
+            break;
+          case "3000-5000":
+            matchesPriceRange = item.price > 3000 && item.price <= 5000;
+            break;
+          case "5000+":
+            matchesPriceRange = item.price > 5000;
+            break;
+        }
+      }
+
+      return matchesSearch && matchesCategory && matchesPriceRange;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "name":
+          return a.name.localeCompare(b.name);
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        default:
+          return 0;
+      }
+    });
 
   // Mobile layout with details modal
   if (breakpoint === "mobile") {
